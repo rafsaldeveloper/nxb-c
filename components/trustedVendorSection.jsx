@@ -91,6 +91,7 @@ export default function TrustedVendorSection() {
                         autoplay={{ delay: 2500, disableOnInteraction: false }}
                         pagination={{ clickable: true }}
                         spaceBetween={30}
+                        centeredSlides={true}
                         breakpoints={{
                             320: { slidesPerView: 1 },
                             640: { slidesPerView: 2 },
@@ -103,100 +104,84 @@ export default function TrustedVendorSection() {
                         ) : (
                             premiumVendors.map((vendor, i) => (
                                 <SwiperSlide key={i} className="!h-auto my-14">
-                                    <Card className="relative p-3 border mb-6 rounded-2xl bg-white shadow hover:shadow-lg transition-all duration-300 h-full flex flex-col justify-between">
-
-                                        {/* Premium Tag */}
+                                    <Card className={`relative p-6 mb-6 rounded-2xl border shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between overflow-hidden group ${vendor.isPremium === "Yes"
+                                        ? "bg-gradient-to-br from-white via-red-50/30 to-red-100/30 border-red-100/60 hover:border-red-300/50"
+                                        : "bg-gradient-to-br from-white via-slate-50/50 to-gray-100/80 border-gray-200 hover:border-gray-300"
+                                        }`}>
+                                        {/* Decorative premium glow */}
                                         {vendor.isPremium === "Yes" && (
-                                            <Badge className="absolute top-4 left-4 bg-yellow-500 text-black px-3 py-1 flex items-center gap-1 shadow-md text-sm">
-                                                <Award className="w-4 h-4" /> Premium
-                                            </Badge>
+                                            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-red-300/20 to-transparent rounded-full blur-2xl -mr-10 -mt-10 transition-transform group-hover:scale-110 duration-500"></div>
                                         )}
 
-                                        <CardContent className="space-y-4 mt-12">
-                                            {/* Vendor Name */}
-                                            <div className="flex justify-between">
-
-                                                <div className="flex items-center gap-3">
-                                                    <User className="w-6 h-6 text-gray-500" />
-                                                    <h3 className="text-xl font-semibold text-gray-800">
-                                                        {vendor.firstName} {vendor.lastName}
-                                                    </h3>
-                                                </div>
-                                                <div>
-                                                    {/* Business Status */}
-                                                    <Badge
-                                                        className={`mt-2 ${vendor.businessStatus === "Active"
-                                                            ? "bg-green-100 text-green-600"
-                                                            : "bg-red-100 text-red-600"
-                                                            }`}
-                                                    >
-                                                        {vendor.businessStatus}
-                                                    </Badge>
-                                                </div>
-                                            </div>
-
-
-                                            {/* Business Name */}
-                                            <p className="text-gray-700 text-lg font-semibold">
-                                                {vendor.businessName}
-                                            </p>
-
-                                            {/* Business Type */}
-                                            {vendor.businessType && (
-                                                <p className="text-gray-500 text-sm">
-                                                    Business Type :{" "}
-                                                    <span className="font-medium capitalize text-gray-800">
+                                        {/* Header Section */}
+                                        <div className="flex justify-between items-start mb-6 relative z-10">
+                                            <div className="pr-4">
+                                                {/* Business Name */}
+                                                <h3 className="text-2xl font-bold text-gray-900 tracking-tight mb-1 line-clamp-1">
+                                                    {vendor.businessName}
+                                                </h3>
+                                                {/* Business Type */}
+                                                {vendor.businessType && (
+                                                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-widest">
                                                         {vendor.businessType}
-                                                    </span>
-                                                </p>
-                                            )}
+                                                    </p>
+                                                )}
+                                            </div>
+                                            <div className="flex flex-col items-end gap-2 shrink-0">
+                                                {/* Premium Tag */}
+                                                {vendor.isPremium === "Yes" && (
+                                                    <Badge className="bg-gradient-to-r from-slate-200 via-gray-100 to-slate-300 text-slate-800 border border-slate-300/60 shadow-sm flex items-center gap-1.5 font-bold text-[10px] uppercase tracking-wider">
+                                                        <Award className="w-3.5 h-3.5" /> Premium
+                                                    </Badge>
+                                                )}
+                                                {/* Status */}
+                                                <Badge
+                                                    variant="outline"
+                                                    className={`px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider border shadow-sm ${vendor.businessStatus === "Active"
+                                                        ? "bg-green-50 text-green-700 border-green-200"
+                                                        : "bg-red-50 text-red-700 border-red-200"
+                                                        }`}
+                                                >
+                                                    <span className={`w-1.5 h-1.5 rounded-full mr-1.5 inline-block ${vendor.businessStatus === "Active" ? "bg-green-500" : "bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]"}`}></span>
+                                                    {vendor.businessStatus}
+                                                </Badge>
+                                            </div>
+                                        </div>
 
-                                            {/* Services */}
-                                            {vendor.services && vendor.services.length > 0 && (
-                                                <div className="text-gray-500 text-sm">
-                                                    <p className="font-medium text-gray-800 mb-1">Services:</p>
-                                                    <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
-                                                        {vendor.services.map((service, idx) => (
-                                                            <li key={idx}>{service}</li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            )}
-
-                                            {/* Business Description */}
-                                            <p className="text-gray-500 text-sm line-clamp-3">
+                                        <CardContent className="p-0 flex-grow flex flex-col relative z-10">
+                                            {/* Description */}
+                                            <p className="text-gray-600 text-sm leading-relaxed line-clamp-3 mb-6 flex-grow">
                                                 {vendor.businessDescrption}
                                             </p>
 
-                                            {/* Location */}
-                                            <div className="flex items-center text-gray-600 text-sm">
-                                                <MapPin className="w-4 h-4 mr-2" />
-                                                {vendor.city}, {vendor.state}
+                                            {/* Experience */}
+                                            <div className="flex items-center gap-3 mb-6 bg-white/60 p-3.5 rounded-xl border border-gray-100 shadow-sm backdrop-blur-sm">
+                                                <div className="bg-gray-900 p-2 rounded-lg text-white shadow-md">
+                                                    <CheckCircle className="w-4 h-4" />
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <span className="text-[11px] text-gray-500 font-bold uppercase tracking-wider">Experience</span>
+                                                    <span className="text-sm font-bold text-gray-900">
+                                                        {vendor.yearsOfExperience || "Not specified"}
+                                                    </span>
+                                                </div>
                                             </div>
 
-                                            {/* Full Address */}
-                                            <p className="text-gray-500 text-sm">
-                                                {vendor.streetAddress}, {vendor.city}, {vendor.state} – {vendor.zipCode}
-                                            </p>
-
-                                            {/* Experience */}
-                                            <p className="text-gray-500 text-sm">
-                                                Experience:{" "}
-                                                <span className="font-medium text-gray-800">
-                                                    {vendor.yearsOfExperience}
-                                                </span>
-                                            </p>
-
-
-
-                                            {/* CTA */}
-                                            <Link href={`/vendor/${vendor.vendorGuid}`} className="hidden">
-                                                <button className="w-full mt-4 h-12 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:from-red-700 hover:to-red-800 transition-all">
-                                                    View Profile
+                                            {/* CTAs */}
+                                            <div className="flex justify-end gap-3 mt-auto pt-3 border-t border-gray-100/60">
+                                                {/* Contact CTA (Hidden) */}
+                                                <button className="hidden py-2 px-5 bg-white border border-gray-200 text-gray-700 text-sm rounded-full font-medium hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 items-center justify-center gap-2 shadow-sm">
+                                                    Contact
                                                 </button>
-                                            </Link>
-                                        </CardContent>
 
+                                                {/* Register CTA */}
+                                                <Link href={`/vendor/register`} className="block">
+                                                    <button className="py-2 px-6 bg-gradient-to-r from-gray-900 to-gray-800 text-white text-sm rounded-full font-medium shadow-sm hover:shadow-md hover:from-black hover:to-gray-900 transition-all duration-300 flex items-center justify-center">
+                                                        Request Quote
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                        </CardContent>
                                     </Card>
                                 </SwiperSlide>
                             ))
