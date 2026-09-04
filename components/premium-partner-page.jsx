@@ -1,61 +1,9 @@
 "use client"
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import ContactForm from "../components/contact-form"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowRight, Send, CheckCircle, Home, Award, TrendingUp, AwardIcon, HelpCircle, Mail } from "lucide-react"
+import { ArrowRight, Home, Award, TrendingUp, AwardIcon, HelpCircle, Mail } from "lucide-react"
 
 export default function PremiumPartnerPage() {
-    const [formData, setFormData] = useState({
-        fullName: "",
-        businessName: "",
-        email: "",
-        contactNumber: "",
-        serviceCategories: "",
-        website: "",
-        message: "",
-    })
-
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [isSubmitted, setIsSubmitted] = useState(false)
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }))
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        setIsSubmitting(true)
-
-        // Simulate form submission
-        await new Promise((resolve) => setTimeout(resolve, 2000))
-
-        setIsSubmitting(false)
-        setIsSubmitted(true)
-
-        // Reset form after 3 seconds
-        setTimeout(() => {
-            setIsSubmitted(false)
-            setFormData({
-                fullName: "",
-                businessName: "",
-                email: "",
-                contactNumber: "",
-                serviceCategories: "",
-                website: "",
-                message: "",
-            })
-        }, 3000)
-    }
-
     const benefits = [
         {
             icon: Home,
@@ -173,7 +121,13 @@ export default function PremiumPartnerPage() {
                 </div>
             </section>
 
-            <ContactForm />
+            <ContactForm
+                heading="Apply to Become a Premium Partner"
+                description="Tell us about your business. Our team will review your request and contact you."
+                defaultSubject="Premium Partner application"
+                subjectReadOnly
+                submitLabel="Submit Premium Application"
+            />
 
             {/* Help Section */}
             <section className="py-20 relative">

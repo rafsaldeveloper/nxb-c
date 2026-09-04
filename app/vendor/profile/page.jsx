@@ -33,6 +33,7 @@ import {
 import { deleteBusinessServices, deleteVendorLicense, getBusinessAddress, getBusinessServices, getServiceTypes, getVendorBusiness, getVendorLicences, getVendorProfileData, setBusinessServices, updateBusinessAddress, updateVendorBusiness, updateVendorProfileData, uploadVendorLicense, vendorSubscriptionStatus } from "@/lib/api/commonApi"
 import { useToast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
+import { isValidUaePhone, toUaePhoneDigits, UAE_PHONE_ERROR, UAE_PHONE_PLACEHOLDER } from "@/lib/utils/uae-phone"
 
 const experienceOptions = ["1-2 years", "3-5 years", "6-10 years", "11-15 years", "16-20 years", "20+ years"]
 
@@ -79,10 +80,18 @@ export default function VendorProfilePage() {
             let response
             switch (activeTab) {
                 case "personal":
+                    if (!isValidUaePhone(editedData.phone)) {
+                        toast({
+                            title: "Invalid phone number",
+                            description: UAE_PHONE_ERROR,
+                            variant: "destructive",
+                        })
+                        return
+                    }
                     let payloadPersonal = {
                         firstName: editedData.firstName,
                         lastName: editedData.lastName,
-                        phoneNo: editedData.phone,
+                        phoneNo: toUaePhoneDigits(editedData.phone),
                     }
                     const responseFromProfile = await updateVendorProfileData(payloadPersonal);
                     console.log("responseFromProfile", responseFromProfile);
@@ -509,6 +518,7 @@ export default function VendorProfilePage() {
                             type="tel"
                             value={isEditing ? editedData.phone : personalData.phone}
                             onChange={(e) => handleInputChange("phone", e.target.value)}
+                            placeholder={UAE_PHONE_PLACEHOLDER}
                             disabled={!isEditing}
                             className={`pl-10 ${!isEditing ? "bg-gray-50" : ""}`}
                         />

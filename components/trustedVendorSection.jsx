@@ -174,12 +174,12 @@ export default function TrustedVendorSection() {
                                                     Contact
                                                 </button>
 
-                                                {/* Register CTA */}
-                                                <Link href={`/vendor/register`} className="block">
-                                                    <button className="py-2 px-6 bg-gradient-to-r from-gray-900 to-gray-800 text-white text-sm rounded-full font-medium shadow-sm hover:shadow-md hover:from-black hover:to-gray-900 transition-all duration-300 flex items-center justify-center">
+                                                {/* Customer enquiry CTA */}
+                                                <Button asChild className="h-auto p-0 bg-transparent hover:bg-transparent shadow-none">
+                                                    <Link href="/signup" className="py-2 px-6 bg-gradient-to-r from-gray-900 to-gray-800 text-white text-sm rounded-full font-medium shadow-sm hover:shadow-md hover:from-black hover:to-gray-900 transition-all duration-300 flex items-center justify-center">
                                                         Request Quote
-                                                    </button>
-                                                </Link>
+                                                    </Link>
+                                                </Button>
                                             </div>
                                         </CardContent>
                                     </Card>
@@ -191,4 +191,4 @@ export default function TrustedVendorSection() {
             </div>
         </section>
     )
-} 
+}

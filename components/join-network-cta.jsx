@@ -39,24 +39,26 @@ export default function JoinNetworkCTA() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                        <Link href={'/signup'}>
-                            <Button
-                                size="lg"
-                                className="bg-white text-[#B93239] hover:bg-gray-100 px-10 h-16 text-xl shadow-2xl hover:shadow-3xl transition-all group"
-                            >
+                        <Button
+                            asChild
+                            size="lg"
+                            className="bg-white text-[#B93239] hover:bg-gray-100 px-10 h-16 text-xl shadow-2xl hover:shadow-3xl transition-all group"
+                        >
+                            <Link href="/signup">
                                 Create Your Account
                                 <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
-                            </Button>
-                        </Link>
-                        <Link href={'/vendor/register'}>
-                            <Button
-                                size="lg"
-                                variant="outline"
-                                className="border-2 border-white text-white hover:bg-white hover:text-[#B93239] px-10 h-16 text-xl backdrop-blur-sm bg-transparent"
-                            >
+                            </Link>
+                        </Button>
+                        <Button
+                            asChild
+                            size="lg"
+                            variant="outline"
+                            className="border-2 border-white text-white hover:bg-white hover:text-[#B93239] px-10 h-16 text-xl backdrop-blur-sm bg-transparent"
+                        >
+                            <Link href="/vendor/register">
                                 Become a Verified Vendor
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                     </div>
                 </div>
             </div>

@@ -46,21 +46,23 @@ export default function ContactCTA() {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button
+                                asChild
                                 size="lg"
                                 className="bg-[#B93239] hover:bg-[#A02A31] text-white px-10 h-14 text-lg shadow-lg hover:shadow-xl transition-all group"
                             >
-                                <Link href="/signin">
+                                <Link href="/signup">
                                     Create Your Account
+                                    <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                                 </Link>
-                                <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                             </Button>
                             <Button
+                                asChild
                                 size="lg"
                                 variant="outline"
                                 className="border-2 border-[#B93239] text-[#B93239] hover:bg-[#B93239] hover:text-white px-10 h-14 text-lg bg-transparent"
                             >
-                                <Link href="/vendor">
-                                    Browse Vendors
+                                <Link href="/signin">
+                                    Sign In to Browse Vendors
                                 </Link>
                             </Button>
                         </div>

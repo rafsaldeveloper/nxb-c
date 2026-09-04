@@ -19,6 +19,7 @@ import { useToast } from "@/hooks/use-toast"
 import { submitEnquiry } from "@/lib/api/auth"
 import { basicProfileDetails, getServiceTypes } from "@/lib/api/commonApi"
 import { setCookie } from "@/lib/utils/cookies"
+import { isValidUaePhone, normalizeUaePhone, UAE_PHONE_ERROR, UAE_PHONE_PLACEHOLDER } from "@/lib/utils/uae-phone"
 
 const serviceOptions = [
     "Roofing Services",
@@ -73,7 +74,7 @@ export function NewEnquiryDialog({ isOpen, onClose, onSubmit }) {
                 break;
             case "phone":
                 if (!value.trim()) return "Phone Number is required";
-                if (!/^\d{8,12}$/.test(value.trim())) return "Phone Number must be only numbers and between 8 to 12 digits.";
+                if (!isValidUaePhone(value)) return UAE_PHONE_ERROR;
                 break;
             case "service":
                 if (!value.trim()) return "Service is required. Please select the required service.";
@@ -201,11 +202,13 @@ export function NewEnquiryDialog({ isOpen, onClose, onSubmit }) {
         }
         setIsSubmitting(true)
         try {
+            const normalizedPhone = normalizeUaePhone(formData.phone)
+
             // Create enquiry object for API submission
             const enquiryData = {
                 name: formData.name,
                 email: formData.email,
-                phone: formData.phone,
+                phone: normalizedPhone,
                 service: formData.service,
                 description: formData.description,
                 priority: formData.priority,
@@ -221,7 +224,7 @@ export function NewEnquiryDialog({ isOpen, onClose, onSubmit }) {
                 id: response.data?.id || Date.now(), // Use backend ID if available
                 name: formData.name,
                 email: formData.email,
-                phone: formData.phone,
+                phone: normalizedPhone,
                 service: formData.service,
                 description: formData.description,
                 status: "pending",
@@ -347,7 +350,7 @@ export function NewEnquiryDialog({ isOpen, onClose, onSubmit }) {
                                 value={formData.phone}
                                 onChange={(e) => handleInputChange("phone", e.target.value)}
                                 onBlur={() => handleBlur("phone")}
-                                placeholder="+1 (555) 123-4567"
+                                placeholder={UAE_PHONE_PLACEHOLDER}
                                 required
                                 className={errors.phone ? "border-red-500" : ""}
                             />

@@ -9,13 +9,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Send, CheckCircle, Clock, Shield } from "lucide-react"
 import { websiteContactForm } from "@/lib/api/commonApi"
 import { useToast } from "@/hooks/use-toast"
+import { isValidUaePhone, normalizeUaePhone, UAE_PHONE_ERROR, UAE_PHONE_PLACEHOLDER } from "@/lib/utils/uae-phone"
 
-export default function ContactForm() {
+export default function ContactForm({
+    heading = "Send Us a Message",
+    description = "Use the form below and our team will get back to you within 24 hours",
+    defaultSubject = "",
+    subjectReadOnly = false,
+    submitLabel = "Submit Message",
+}) {
     const [formData, setFormData] = useState({
         cName: "",
         cEmail: "",
         cContact: "",
-        cSubject: "",
+        cSubject: defaultSubject,
         cMessage: "",
     })
     const { toast } = useToast();
@@ -33,29 +40,52 @@ export default function ContactForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        if (!isValidUaePhone(formData.cContact)) {
+            toast({
+                title: "Invalid phone number",
+                description: UAE_PHONE_ERROR,
+                variant: "destructive",
+            })
+            return
+        }
+
         setIsSubmitting(true)
         try {
-            const dataReturned = await websiteContactForm(formData);
-            if (dataReturned.data.isSuccess) {
-                console.log("inside the isSuccess")
-                setIsSubmitted(true)
+            const dataReturned = await websiteContactForm({
+                ...formData,
+                cContact: normalizeUaePhone(formData.cContact),
+            });
+            if (!dataReturned.data.isSuccess) {
+                toast({
+                    title: "Submission failed",
+                    description: dataReturned.data.message || "We could not send your message. Please try again.",
+                    variant: "destructive",
+                })
+                return
             }
+
+            setIsSubmitted(true)
             toast({
                 title: dataReturned.data.message,
                 variant: "success"
             })
-            console.log(formData)
-            setIsSubmitting(false)
             setFormData({
                 cName: "",
                 cEmail: "",
                 cContact: "",
-                cSubject: "",
+                cSubject: defaultSubject,
                 cMessage: "",
             })
         } catch (error) {
-            setIsSubmitting(false);
             console.error(error)
+            toast({
+                title: "Submission failed",
+                description: error.response?.data?.message || "We could not send your message. Please try again.",
+                variant: "destructive",
+            })
+        } finally {
+            setIsSubmitting(false)
         }
     }
 
@@ -93,9 +123,9 @@ export default function ContactForm() {
 
             <div className="container mx-auto px-4 relative z-10">
                 <div className="text-center mb-16" data-aos="fade-up">
-                    <h2 className="text-4xl mb-6 text-white font-semibold">Send Us a Message</h2>
+                    <h2 className="text-4xl mb-6 text-white font-semibold">{heading}</h2>
                     <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
-                        Use the form below and our team will get back to you within 24 hours
+                        {description}
                     </p>
                 </div>
 
@@ -146,7 +176,7 @@ export default function ContactForm() {
                                                     <Input
                                                         id="cEmail"
                                                         name="cEmail"
-                                                        type="cEmail"
+                                                        type="email"
                                                         required
                                                         value={formData.cEmail}
                                                         onChange={handleInputChange}
@@ -163,12 +193,12 @@ export default function ContactForm() {
                                                 <Input
                                                     id="cContact"
                                                     name="cContact"
-                                                    type="text"
+                                                    type="tel"
                                                     required
                                                     value={formData.cContact}
                                                     onChange={handleInputChange}
                                                     className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-[#B93239] focus:ring-[#B93239] h-12"
-                                                    placeholder="What's this about?"
+                                                    placeholder={UAE_PHONE_PLACEHOLDER}
                                                 />
                                             </div>
 
@@ -183,7 +213,8 @@ export default function ContactForm() {
                                                     required
                                                     value={formData.cSubject}
                                                     onChange={handleInputChange}
-                                                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-[#B93239] focus:ring-[#B93239] h-12"
+                                                    readOnly={subjectReadOnly}
+                                                    className={`bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-[#B93239] focus:ring-[#B93239] h-12 ${subjectReadOnly ? "cursor-not-allowed opacity-80" : ""}`}
                                                     placeholder="What's this about?"
                                                 />
                                             </div>
@@ -216,7 +247,7 @@ export default function ContactForm() {
                                                     </>
                                                 ) : (
                                                     <>
-                                                        Submit Message
+                                                        {submitLabel}
                                                         <Send className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                                                     </>
                                                 )}

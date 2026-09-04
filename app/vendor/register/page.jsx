@@ -39,6 +39,7 @@ import VendorOTPBox from "@/components/vendorOTPDialog"
 import { submitVendorRegistration, vendorRegister } from "@/lib/api/auth"
 import { useToast } from "@/hooks/use-toast"
 import { getServiceTypes } from "@/lib/api/commonApi"
+import { isValidUaePhone, toUaePhoneDigits, UAE_PHONE_ERROR, UAE_PHONE_PLACEHOLDER } from "@/lib/utils/uae-phone"
 import { title } from "process"
 
 const serviceOptions = [
@@ -144,8 +145,8 @@ export default function VendorRegisterPage() {
     }
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required"
-    } else if (!/^[\+]?[1-9][\d]{0,15}$/.test(formData.phone.replace(/[\s\-\(\)]/g, ''))) {
-      newErrors.phone = "Please enter a valid phone number"
+    } else if (!isValidUaePhone(formData.phone)) {
+      newErrors.phone = UAE_PHONE_ERROR
     }
     if (!formData.password) {
       newErrors.password = "Password is required"
@@ -308,7 +309,7 @@ export default function VendorRegisterPage() {
       firstName: formData.firstName,
       lastName: formData.lastName,
       emailAddress: formData.email,
-      phoneNumber: formData.phone,
+      phoneNumber: toUaePhoneDigits(formData.phone),
       pwd: formData.password,
       businessName: formData.businessName,
       businessType: formData.businessType,
@@ -523,7 +524,7 @@ export default function VendorRegisterPage() {
               type="tel"
               value={formData.phone}
               onChange={(e) => handleInputChange("phone", e.target.value)}
-              placeholder="+1 (555) 123-4567"
+              placeholder={UAE_PHONE_PLACEHOLDER}
               className={`pl-10 ${errors.phone ? "border-red-500 focus:border-red-500" : ""}`}
               required
             />
@@ -924,8 +925,7 @@ export default function VendorRegisterPage() {
             I agree to the{" "}
             <Link href="/terms-and-conditions" target="_blank" className="text-[#B80D2D] hover:underline">
               Terms of Service
-            </Link>{" "}
-            and understand that my subscription will auto-renew monthly at $49/month.
+            </Link>.
           </Label>
         </div>
         {errors.agreeToTerms && (

@@ -61,15 +61,16 @@ export default function ServicesCTA() {
             <p className="text-white/80 mb-6 text-lg">
               Join thousands of project owners who trust Nexus Built for their vendor needs
             </p>
-            <Link href='/signin'>
-              <Button
-                size="lg"
-                className="bg-white text-[#B93239] hover:bg-gray-100 lg:px-12 px-4 lg:h-16 h-12 lg:text-xl text-[16px] shadow-2xl hover:shadow-3xl transition-all group"
-              >
+            <Button
+              asChild
+              size="lg"
+              className="bg-white text-[#B93239] hover:bg-gray-100 lg:px-12 px-4 lg:h-16 h-12 lg:text-xl text-[16px] shadow-2xl hover:shadow-3xl transition-all group"
+            >
+              <Link href="/signup">
                 Sign Up and Start Searching
                 <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
 
           {/* Secondary info */}

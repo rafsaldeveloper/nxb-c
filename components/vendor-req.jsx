@@ -117,10 +117,11 @@ export default function VendorRequirementsSection() {
               takes 3-5 business days to complete.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href={'/contactUs'}>
-                <button className="bg-gradient-to-r from-[#B93239] to-[#A02A31] hover:from-[#A02A31] hover:to-[#8B1E25] text-white px-8 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all">
+              <Link
+                href="/vendor/register"
+                className="bg-gradient-to-r from-[#B93239] to-[#A02A31] hover:from-[#A02A31] hover:to-[#8B1E25] text-white px-8 py-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all"
+              >
                   Start Verification Process
-                </button>
               </Link>
               <button className="border-2 hidden border-[#B93239] text-[#B93239] hover:bg-[#B93239] hover:text-white px-8 py-3 rounded-xl font-medium bg-transparent transition-all">
                 Download Requirements Guide

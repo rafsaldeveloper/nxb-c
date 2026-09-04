@@ -98,7 +98,7 @@ export default function FeaturedCategories() {
   ]
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-50 via-gray-50 to-white relative overflow-hidden">
+    <section id="featured-categories" className="py-20 bg-gradient-to-br from-slate-50 via-gray-50 to-white relative overflow-hidden scroll-mt-20">
       {/* Decorative elements */}
       <div className="absolute top-10 right-10 w-40 h-40 bg-gradient-to-br from-[#B93239]/8 to-transparent rounded-full blur-2xl"></div>
       <div className="absolute bottom-20 left-20 w-32 h-32 bg-gradient-to-br from-[#B93239]/12 to-transparent rounded-full blur-xl"></div>
@@ -121,9 +121,13 @@ export default function FeaturedCategories() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {featuredCategories.map((category, index) => (
-            <Link href="/contactUs">
+            <Link
+              href="/signup"
+              key={category.name}
+              aria-label={`Create a customer account to find ${category.name} vendors`}
+              className="rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B93239] focus-visible:ring-offset-4"
+            >
               <div
-                key={index}
                 data-aos="fade-up"
                 data-aos-delay={index * 100}
                 className="group cursor-pointer h-full transform hover:scale-105 transition-all duration-300"
@@ -159,7 +163,10 @@ export default function FeaturedCategories() {
 
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-500 font-medium">{category.vendorCount}</span>
-                      <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-[#B93239] group-hover:translate-x-1 transition-all duration-300" />
+                      <span className="flex items-center text-sm font-medium text-[#B93239]">
+                        Create account
+                        <ArrowRight className="h-5 w-5 ml-1 text-gray-400 group-hover:text-[#B93239] group-hover:translate-x-1 transition-all duration-300" />
+                      </span>
                     </div>
                   </CardContent>
 

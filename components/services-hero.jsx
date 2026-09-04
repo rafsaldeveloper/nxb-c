@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search, Grid, Shield, Users } from "lucide-react"
+import { Grid, Shield, Users } from "lucide-react"
 import Link from "next/link"
 
 export default function ServicesHero() {
@@ -48,37 +47,22 @@ export default function ServicesHero() {
                         automation.
                     </p>
 
-                    {/* Enhanced search bar */}
-                    <div className="max-w-3xl mx-auto mb-16">
-                        <div className="relative">
-                            <div className="flex gap-4 bg-white/95 backdrop-blur-sm rounded-3xl lg:p-4 p-2 shadow-2xl border border-white/20">
-                                <div className="flex-1 relative">
-                                    <Search className="absolute lg:left-6 left-1 top-1/2 transform -translate-y-1/2 text-gray-400 h-6 w-6" />
-                                    <Input
-                                        placeholder="e.g., HVAC, Joinery, Interior Painting..."
-                                        className="lg:pl-16 pl-8 border-0 focus:ring-0 text-gray-900 bg-transparent h-14 text-lg rounded-2xl"
-                                    />
-                                </div>
-                                <Link href="/contactUs">
-                                    <Button className="bg-[#B93239] hover:bg-[#A02A31] lg:px-10 px-4 h-14 text-lg shadow-lg hover:shadow-xl transition-all rounded-2xl">
-                                        Search Services
-                                    </Button>
-                                </Link>
-                            </div>
-                            {/* Search suggestions */}
-                            <div className="absolute top-full left-0 right-0 mt-2 bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <div className="flex flex-wrap gap-2">
-                                    {["Electrical", "HVAC", "Plumbing", "Joinery", "Painting"].map((suggestion) => (
-                                        <span
-                                            key={suggestion}
-                                            className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-[#B93239] hover:text-white cursor-pointer transition-colors"
-                                        >
-                                            {suggestion}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                    <div className="flex flex-col sm:flex-row justify-center gap-4 max-w-3xl mx-auto mb-16">
+                        <Button
+                            asChild
+                            size="lg"
+                            className="bg-white text-[#B93239] hover:bg-gray-100 px-10 h-14 text-lg shadow-xl hover:shadow-2xl transition-all"
+                        >
+                            <Link href="#featured-categories">Browse Categories</Link>
+                        </Button>
+                        <Button
+                            asChild
+                            size="lg"
+                            variant="outline"
+                            className="border-2 border-white text-white hover:bg-white hover:text-[#B93239] bg-transparent px-10 h-14 text-lg"
+                        >
+                            <Link href="/signup">Create Customer Account</Link>
+                        </Button>
                     </div>
 
                     {/* Stats */}

@@ -87,32 +87,39 @@ export default function Header() {
         <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                 <div className="flex items-center space-x-4 md:space-x-8">
-                    <a href="/">
+                    <Link href="/">
                         <img
                             src="/assets/header images/nexus_logo_no_bg.png"
                             alt="Nexus Built"
                             className="h-12 w-auto"
                         />
-                    </a>
+                    </Link>
                     <nav className="hidden md:flex items-center space-x-6">
-                        <a href="/home" className="hover:text-[#B93239] transition-colors">Home</a>
-                        <a href="/about" className="hover:text-[#B93239] transition-colors">About Us</a>
-                        <a href="/services" className="hover:text-[#B93239] transition-colors">Services</a>
-                        <a href="/contactUs" className="hover:text-[#B93239] transition-colors">Contact Us</a>
+                        <Link href="/" className="hover:text-[#B93239] transition-colors">Home</Link>
+                        <Link href="/about" className="hover:text-[#B93239] transition-colors">About Us</Link>
+                        <Link href="/services" className="hover:text-[#B93239] transition-colors">Services</Link>
+                        <Link href="/contactUs" className="hover:text-[#B93239] transition-colors">Contact Us</Link>
                     </nav>
                 </div>
 
                 {/* Desktop Buttons */}
                 <div className="hidden md:flex items-center space-x-4">
-                    <Button variant="ghost"><Link href="/signin">Sign In</Link></Button>
-                    <Button className="bg-[#B93239] hover:bg-[#A02A31] text-white shadow-lg hover:shadow-xl transition-all">
-                        <Link href="/vendor">Join as Vendor</Link>
+                    <Button asChild variant="ghost">
+                        <Link href="/signin">Sign In</Link>
+                    </Button>
+                    <Button asChild className="bg-[#B93239] hover:bg-[#A02A31] text-white shadow-lg hover:shadow-xl transition-all">
+                        <Link href="/vendor/register">Join as Vendor</Link>
                     </Button>
                 </div>
 
                 {/* Hamburger Menu Icon */}
                 <div className="md:hidden">
-                    <button onClick={() => setIsOpen(!isOpen)}>
+                    <button
+                        type="button"
+                        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+                        aria-expanded={isOpen}
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
                         {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                     </button>
                 </div>
@@ -130,15 +137,17 @@ export default function Header() {
                 className="md:hidden bg-white/80 backdrop-blur-md shadow-md px-4"
             >
                 <div className="py-4 flex flex-col space-y-3">
-                    <a href="/" className="hover:text-[#B93239] transition-colors">Home</a>
-                    <a href="/about" className="hover:text-[#B93239] transition-colors">About Us</a>
-                    <a href="/services" className="hover:text-[#B93239] transition-colors">Services</a>
-                    <a href="/contactUs" className="hover:text-[#B93239] transition-colors">Contact Us</a>
+                    <Link href="/" className="hover:text-[#B93239] transition-colors">Home</Link>
+                    <Link href="/about" className="hover:text-[#B93239] transition-colors">About Us</Link>
+                    <Link href="/services" className="hover:text-[#B93239] transition-colors">Services</Link>
+                    <Link href="/contactUs" className="hover:text-[#B93239] transition-colors">Contact Us</Link>
 
                     <div className="pt-2 flex flex-col space-y-2">
-                        <Button variant="ghost" className="w-full" onClick={() => (window.location.href = "/signin")}>Sign In</Button>
-                        <Button onClick={() => (window.location.href = "/vendor")} className="bg-[#B93239] hover:bg-[#A02A31] text-white shadow-lg hover:shadow-xl transition-all w-full">
-                            Join as Vendor
+                        <Button asChild variant="ghost" className="w-full">
+                            <Link href="/signin">Sign In</Link>
+                        </Button>
+                        <Button asChild className="bg-[#B93239] hover:bg-[#A02A31] text-white shadow-lg hover:shadow-xl transition-all w-full">
+                            <Link href="/vendor/register">Join as Vendor</Link>
                         </Button>
                     </div>
                 </div>

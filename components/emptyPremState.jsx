@@ -46,14 +46,13 @@ export default function EmptyPremiumCTA() {
             </div>
 
             {/* CTA Button */}
-            <Link href="/premium-partner">
-                <button
-                    className="mt-4 h-12 px-8 bg-gradient-to-r from-[#B93239] to-[#A02A31] 
-                               text-white rounded-xl font-semibold shadow-lg hover:shadow-xl 
-                               hover:from-[#A02A31] hover:to-[#8B1E25] transition-all"
-                >
-                    Upgrade to Premium
-                </button>
+            <Link
+                href="/premium-partner"
+                className="mt-4 h-12 px-8 bg-gradient-to-r from-[#B93239] to-[#A02A31]
+                               text-white rounded-xl font-semibold shadow-lg hover:shadow-xl
+                               hover:from-[#A02A31] hover:to-[#8B1E25] transition-all inline-flex items-center justify-center"
+            >
+                Upgrade to Premium
             </Link>
         </div>
     );

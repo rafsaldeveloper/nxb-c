@@ -58,26 +58,15 @@ export default function PremiumPartnerCTA() {
                                 Become a Premium Partner and get featured on the homepage with a verified badge and priority positioning.
                             </p>
 
-                            {/* Premium stats */}
-                            <div className="grid grid-cols-2 gap-6 mb-8">
-                                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center">
-                                    <div className="text-2xl font-bold mb-1">5x</div>
-                                    <div className="text-sm opacity-80">More Visibility</div>
-                                </div>
-                                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center">
-                                    <div className="text-2xl font-bold mb-1">3x</div>
-                                    <div className="text-sm opacity-80">More Enquiries</div>
-                                </div>
-                            </div>
-
                             <Button
+                                asChild
                                 size="lg"
                                 className="bg-white text-[#B93239] hover:bg-gray-100 px-10 h-16 text-xl shadow-2xl hover:shadow-3xl transition-all group"
                             >
                                 <Link href="/premium-partner">
-                                Become a Premium Partner
+                                    Become a Premium Partner
+                                    <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
                                 </Link>
-                                <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         </div>
 
@@ -112,7 +101,7 @@ export default function PremiumPartnerCTA() {
                                 {/* Additional info */}
                                 <div className="mt-8 pt-6 border-t border-white/20 text-center">
                                     <p className="text-white/80 text-sm">
-                                        Premium Partnership includes all yearly plan features plus exclusive benefits
+                                        Premium applications are reviewed by the Nexus Built team.
                                     </p>
                                 </div>
                             </div>

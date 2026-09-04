@@ -108,18 +108,20 @@ export default function AllCategories() {
                   <CardContent className="pt-0">
                     <div className="grid gap-3">
                       {group.categories.map((category, categoryIndex) => (
-                        <div
+                        <Link
+                          href="/signup"
                           key={categoryIndex}
-                          className="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors duration-300 cursor-pointer group/item"
+                          aria-label={`Create a customer account to find ${category} vendors`}
+                          className="flex items-center justify-between p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-colors duration-300 group/item focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B93239]"
                         >
                           <span className="text-gray-300 group-hover/item:text-white transition-colors">
                             {category}
                           </span>
                           <div className="flex items-center space-x-2 opacity-0 group-hover/item:opacity-100 transition-opacity">
-                            <span className="text-xs text-gray-400">View Vendors</span>
+                            <span className="text-xs text-gray-400">Create account to view vendors</span>
                             <div className="w-2 h-2 bg-[#B93239] rounded-full"></div>
                           </div>
-                        </div>
+                        </Link>
                       ))}
                     </div>
                   </CardContent>
@@ -136,11 +138,9 @@ export default function AllCategories() {
             <p className="text-gray-300 mb-6 leading-relaxed">
               Can't find what you're looking for? Browse our complete directory of verified vendors.
             </p>
-            <Link href="/signup">
-              <Button className="bg-[#B93239] hover:bg-[#A02A31] text-white shadow-lg hover:shadow-xl transition-all px-8 h-12 text-lg">
-                View All Categories SignUp
-              </Button>
-            </Link>
+            <Button asChild className="bg-[#B93239] hover:bg-[#A02A31] text-white shadow-lg hover:shadow-xl transition-all px-8 h-12 text-lg">
+              <Link href="/signup">Create Customer Account</Link>
+            </Button>
           </div>
         </div>
       </div>

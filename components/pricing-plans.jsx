@@ -104,7 +104,7 @@ export default function PricingPlans() {
 
                 <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     {plans.map((plan, index) => (
-                        <Link href="/vendor/register" key={index} >
+                        <div key={index}>
                             <div
 
                                 data-aos="fade-up"
@@ -176,13 +176,16 @@ export default function PricingPlans() {
 
                                         {/* CTA Button */}
                                         <Button
-                                            className={`w-full h-12 text-lg shadow-lg hover:shadow-xl transition-all group/btn ${plan.buttonVariant === "default"
+                                            asChild
+                                            className={`relative z-10 w-full h-12 text-lg shadow-lg hover:shadow-xl transition-all group/btn ${plan.buttonVariant === "default"
                                                 ? "bg-gradient-to-r from-[#B93239] to-[#A02A31] hover:from-[#A02A31] hover:to-[#8B1E25] text-white"
                                                 : "border-2 border-[#B93239] text-[#B93239] hover:bg-[#B93239] hover:text-white bg-transparent"
                                                 }`}
                                         >
-                                            {plan.buttonText}
-                                            <ArrowRight className="ml-2 h-5 w-5 group-hover/btn:translate-x-1 transition-transform" />
+                                            <Link href="/vendor/register">
+                                                {plan.buttonText}
+                                                <ArrowRight className="ml-2 h-5 w-5 group-hover/btn:translate-x-1 transition-transform" />
+                                            </Link>
                                         </Button>
                                     </CardContent>
 
@@ -190,7 +193,7 @@ export default function PricingPlans() {
                                     <div className="absolute inset-0 bg-gradient-to-br from-[#B93239]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
                                 </Card>
                             </div>
-                        </Link>
+                        </div>
                     ))}
                 </div>
             </div>

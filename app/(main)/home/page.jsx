@@ -7,9 +7,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import {
-    Search,
     Star,
     MapPin,
     Clock,
@@ -195,21 +193,22 @@ export default function HomePageNew() {
                             Nexus Built helps you find trusted vendors across the UAE’s construction and fit-out industry. Explore services by category, view verified business profiles, and send enquiries from one secure platform.
                         </p>
 
-                        <div className="max-w-2xl mx-auto mb-12">
-                            <div className="flex gap-4 bg-white/90 backdrop-blur-sm rounded-2xl p-3 shadow-2xl">
-                                <div className="flex-1 relative">
-                                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                                    <Input
-                                        placeholder="Search vendors, services, or locations..."
-                                        className="pl-12 border-0 focus:ring-0 text-gray-900 bg-transparent h-12 text-lg"
-                                    />
-                                </div>
-                                <Link href='/contactUs'>
-                                    <Button className="bg-[#B93239] hover:bg-[#A02A31] px-8 h-12 text-lg shadow-lg hover:shadow-xl transition-all">
-                                        Search
-                                    </Button>
-                                </Link>
-                            </div>
+                        <div className="flex flex-col sm:flex-row justify-center gap-4 max-w-2xl mx-auto mb-12">
+                            <Button
+                                asChild
+                                size="lg"
+                                className="bg-white text-[#B93239] hover:bg-gray-100 px-8 h-12 text-lg shadow-lg hover:shadow-xl transition-all"
+                            >
+                                <Link href="/services">Browse Services</Link>
+                            </Button>
+                            <Button
+                                asChild
+                                size="lg"
+                                variant="outline"
+                                className="border-2 border-white text-white hover:bg-white hover:text-[#B93239] bg-transparent px-8 h-12 text-lg"
+                            >
+                                <Link href="/signup">Create Customer Account</Link>
+                            </Button>
                         </div>
 
                         <div className="flex flex-wrap justify-center items-center gap-8 text-sm opacity-90">
@@ -248,12 +247,14 @@ export default function HomePageNew() {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 justify-center gap-8">
                         {categories.map((category, index) => (
-                            <div
+                            <Link
+                                href="/signup"
                                 key={index}
+                                aria-label={`Create a customer account to find ${category.name} vendors`}
                                 data-aos="fade-up"
                                 data-aos-delay={index * 150}
                                 data-aos-duration="800"
-                                className="group cursor-pointer min-h-[230px] h-full transform hover:scale-105 transition-all duration-300"
+                                className="group min-h-[230px] h-full transform hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B93239] focus-visible:ring-offset-4 focus-visible:ring-offset-gray-900 rounded-2xl"
 
                             >
                                 <div
@@ -268,14 +269,14 @@ export default function HomePageNew() {
                                         <h3 className="text-2xl mb-3 text-white group-hover:text-[#B93239] transition-colors duration-300">
                                             {category.name}
                                         </h3>
-                                        <p className="text-gray-300 text-lg">{category.count}</p>
+                                        <p className="text-gray-300 text-sm">Create an account to view vendors</p>
                                     </div>
 
                                     {/* Corner accents */}
                                     <div className="absolute top-4 right-4 w-2 h-2 bg-[#B93239] rounded-full opacity-60"></div>
                                     <div className="absolute bottom-4 left-4 w-1 h-1 bg-white/40 rounded-full"></div>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
 
@@ -347,23 +348,25 @@ export default function HomePageNew() {
                         on Nexus Built.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                        <Link href="/vendor/register">
-                            <Button
-                                size="lg"
-                                className="bg-white text-[#B93239] hover:bg-gray-100 px-10 h-14 text-lg shadow-xl hover:shadow-2xl transition-all"
-                            >
+                        <Button
+                            asChild
+                            size="lg"
+                            className="bg-white text-[#B93239] hover:bg-gray-100 px-10 h-14 text-lg shadow-xl hover:shadow-2xl transition-all"
+                        >
+                            <Link href="/vendor/register">
                                 Register as Vendor
-                            </Button>
-                        </Link>
-                        <Link href='/signin'>
-                            <Button
-                                size="lg"
-                                variant="outline"
-                                className="border-2 border-white text-[#B93239] hover:bg-white hover:text-[#B93239] px-10 h-14 text-lg backdrop-blur-sm"
-                            >
-                                Browse Vendors
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
+                        <Button
+                            asChild
+                            size="lg"
+                            variant="outline"
+                            className="border-2 border-white text-[#B93239] hover:bg-white hover:text-[#B93239] px-10 h-14 text-lg backdrop-blur-sm"
+                        >
+                            <Link href="/signin">
+                                Sign In to Browse Vendors
+                            </Link>
+                        </Button>
                     </div>
                 </div>
             </section>
