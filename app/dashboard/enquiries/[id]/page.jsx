@@ -5,10 +5,10 @@ import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Paperclip, Calendar, Phone, Mail, User, FileText, Clock, Download, Eye, Star, MapPin, Building, TrendingUp, Shield, AlertCircle, MessageSquare } from "lucide-react"
+import { Paperclip, Calendar, Phone, Mail, User, FileText, Clock, Star, MapPin, Building, TrendingUp, Shield, AlertCircle, MessageSquare } from "lucide-react"
 import { attachmentFromCustomer, getIndividualCustomerEnquiry, getQuotesByEnquiry } from "@/lib/api/commonApi"
 import { useToast } from "@/hooks/use-toast"
-import Image from "next/image"
+import EnquiryAttachments from "@/components/enquiry-attachments"
 
 export default function IndCustEnq() {
   const { id } = useParams()
@@ -186,28 +186,7 @@ export default function IndCustEnq() {
                   {attachmentsLoading ? (
                     <p className="text-gray-500 text-center">Loading attachments...</p>
                   ) : (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                      {(enquiryData.attachmentCount >= 1 ? attachments : "nothing to show")?.map((att, idx) => (
-                        <div key={idx} className="relative group h-32 border rounded-lg overflow-hidden cursor-pointer">
-                          <Image
-                            src={att.filePath}
-                            alt={att.fileName || `Attachment ${idx + 1}`}
-                            fill
-                            style={{ objectFit: "cover" }}
-                            className="hover:scale-105 transition-transform"
-                            onClick={() => window.open(att.filePath, "_blank")}
-                          />
-                          <a
-                            href={att.filePath}
-                            download={att.fileName || `attachment-${idx + 1}`}
-                            className="absolute bottom-1 right-1 bg-white p-1 rounded-full shadow opacity-0 group-hover:opacity-100"
-                            title="Download"
-                          >
-                            <Download className="w-4 h-4 text-gray-700" />
-                          </a>
-                        </div>
-                      ))}
-                    </div>
+                    <EnquiryAttachments attachments={attachments} />
                   )}
                 </CardContent>
               </Card>
@@ -365,26 +344,13 @@ export default function IndCustEnq() {
                                 <Paperclip className="h-4 w-4 mr-2 text-[#B93239]" />
                                 Vendor Attachments
                               </h4>
-                              <ul className="space-y-2">
-
-                                <li
-                                  // key={idx}
-                                  className="flex items-center justify-between p-2 border rounded-lg bg-gray-50 hover:bg-gray-100"
-                                >
-                                  <span className="text-sm font-medium text-gray-800 truncate">
-                                    {quote.attachment}
-                                  </span>
-                                  <a
-                                    href={quote.attachment}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-sm text-[#B93239] hover:underline"
-                                  >
-                                    View
-                                  </a>
-                                </li>
-
-                              </ul>
+                              <EnquiryAttachments
+                                attachments={[{
+                                  filePath: quote.attachment,
+                                  fileName: quote.attachmentName,
+                                  fileType: quote.attachmentType,
+                                }]}
+                              />
                             </div>
                           )}
                         </div>

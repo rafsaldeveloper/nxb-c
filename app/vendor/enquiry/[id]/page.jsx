@@ -21,15 +21,13 @@ import {
   Clock,
   Building2,
   Paperclip,
-  Eye,
-  Download,
   Send,
   Users,
 } from "lucide-react"
 import QuoteModal from '@/components/vendorFormDialog'
 import { attachmentForVendor, getIndividualVendorEnquiry, submitVendorQuoteForm } from "@/lib/api/commonApi"
 import { useToast } from "@/hooks/use-toast"
-import Image from "next/image"
+import EnquiryAttachments from "@/components/enquiry-attachments"
 
 // Mock enquiry data (in real app, this would come from API based on ID)
 
@@ -226,28 +224,7 @@ export default function EnquiryDetailPage() {
                   {attachmentsLoading ? (
                     <p className="text-gray-500 text-center">Loading attachments...</p>
                   ) : (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                      {(enquiryData.attachmentCount >= 1 ? attachments : "nothing to show")?.map((att, idx) => (
-                        <div key={idx} className="relative group h-32 border rounded-lg overflow-hidden cursor-pointer">
-                          <Image
-                            src={att.filePath}
-                            alt={att.fileName || `Attachment ${idx + 1}`}
-                            fill
-                            style={{ objectFit: "cover" }}
-                            className="hover:scale-105 transition-transform"
-                            onClick={() => window.open(att.filePath, "_blank")}
-                          />
-                          <a
-                            href={att.filePath}
-                            download={att.fileName || `attachment-${idx + 1}`}
-                            className="absolute bottom-1 right-1 bg-white p-1 rounded-full shadow opacity-0 group-hover:opacity-100"
-                            title="Download"
-                          >
-                            <Download className="w-4 h-4 text-gray-700" />
-                          </a>
-                        </div>
-                      ))}
-                    </div>
+                    <EnquiryAttachments attachments={attachments} />
                   )}
                 </CardContent>
               </Card>
